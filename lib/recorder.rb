@@ -6,6 +6,10 @@ class Recorder
   AMQP_EXCHANGE = "datainsight"
   AMQP_QUEUE = "everything"
 
+  def initialize(data_dir=nil)
+    @data_dir = data_dir || "/var/data/datainsight/everything"
+  end
+
   def run
     queue.subscribe do |msg|
       begin
@@ -43,7 +47,7 @@ class Recorder
         @current_file.close()
       end
       @current_day = Date.today
-      @current_file = File.open("/var/data/datainsight/everything/messages-#@current_day", "w+")
+      @current_file = File.open(File.join(@data_dir, "messages-#@current_day"), "a+")
     end
     @current_file
   end
