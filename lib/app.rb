@@ -13,11 +13,7 @@ end
 
 get '/routing-keys' do
   content_type :json
-  data_object.to_json
-end
-
-def data_object
-  {meta:'foo', topics:'bar'}
+  File.read(RoutingKeyTracker::PATH)
 end
 
 error do
