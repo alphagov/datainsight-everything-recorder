@@ -1,6 +1,7 @@
 require "bundler/setup"
 Bundler.require(:default, :exposer)
 require "json"
+require_relative "routing_key_tracker"
 
 helpers Datainsight::Logging::Helpers
 
@@ -13,7 +14,11 @@ end
 
 get '/routing-keys' do
   content_type :json
-  File.read(RoutingKeyTracker::PATH)
+  begin
+    File.read(RoutingKeyTracker::PATH)
+  rescue
+    {}.to_json
+  end
 end
 
 error do

@@ -1,5 +1,6 @@
 require 'bundler/setup'
 Bundler.require(:default, :recorder)
+require_relative "routing_key_tracker"
 
 class Recorder
   AMQP_ROUTING_KEY = "#"
@@ -15,6 +16,7 @@ class Recorder
       begin
         logger.debug { "Received a message: #{msg}"}
         process_message(msg)
+        tracker.notify(msg[:delivery_details][:routing_key])
       end
     end
   end
@@ -24,6 +26,10 @@ class Recorder
   end
 
   private
+
+  def tracker
+    @tracker ||= RoutingKeyTracker.new
+  end
 
   def queue
     @queue ||= create_queue
