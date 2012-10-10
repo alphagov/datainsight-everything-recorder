@@ -1,7 +1,13 @@
 source "https://rubygems.org"
+source "https://gems.gemfury.com/vo6ZrmjBQu5szyywDszE/"
 
 gem "rake"
 gem "datainsight_logging"
+
+group :exposer do
+  gem "sinatra"
+  gem "unicorn"
+end
 
 group :recorder do
   gem "bunny"
