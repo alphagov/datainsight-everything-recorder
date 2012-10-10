@@ -22,6 +22,7 @@ describe "Recorder" do
     @data_dir = "/tmp/datainsight-everything-recorder"
     FileUtils.mkpath(@data_dir)
 
+    RoutingKeyTracker.stub(:new)
     @recorder = Recorder.new(@data_dir)
   end
 

@@ -6,12 +6,16 @@ class RoutingKeyTracker
 
   def notify(routing_key)
     keys[routing_key] = DateTime.now
-    File.open(PATH,"w+") do |file|
-      file.write(keys.to_json)
-    end
+    write
   end
 
   def keys
     @keys ||= Hash.new
+  end
+
+  def write
+    File.open(PATH,"w+") do |file|
+      file.write(keys.to_json)
+    end
   end
 end

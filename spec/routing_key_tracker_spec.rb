@@ -4,6 +4,7 @@ require_relative "../lib/routing_key_tracker"
 describe "Routing key tracker" do
   before(:each) do
     @tracker = RoutingKeyTracker.new
+    @tracker.stub(:write)
   end
   it "should return all the keys that have been added and their most recent dates" do
     @tracker.notify("foo.bar")
@@ -25,9 +26,8 @@ describe "Routing key tracker" do
   end
 
   it "should write the keys to a json file" do
+    @tracker.should_receive(:write)
     DateTime.stub(:now).and_return(DateTime.new(2012, 10, 10, 10, 10, 10))
     @tracker.notify("foo.monkey")
-
-    File.read(RoutingKeyTracker::PATH).should == '{"foo.monkey":"2012-10-10T10:10:10+00:00"}'
   end
 end
