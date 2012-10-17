@@ -22,7 +22,8 @@ class Recorder
   end
 
   def process_message(msg)
-    file.write("#{msg[:payload]}\n")
+    msg.delete(:header)
+    file.write("#{msg.to_json}\n")
   end
 
   private
