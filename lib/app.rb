@@ -2,8 +2,12 @@ require "bundler/setup"
 Bundler.require(:default, :exposer)
 require "json"
 require_relative "routing_key_tracker"
+require_relative "initializers"
 
 helpers Datainsight::Logging::Helpers
+
+use Airbrake::Rack
+enable :raise_errors
 
 configure do
   enable :logging

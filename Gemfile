@@ -3,6 +3,7 @@ source "https://gems.gemfury.com/vo6ZrmjBQu5szyywDszE/"
 
 gem "rake"
 gem "datainsight_logging"
+gem "airbrake", "3.1.5"
 
 group :exposer do
   gem "sinatra"
